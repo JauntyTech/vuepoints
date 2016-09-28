@@ -13,5 +13,13 @@
   "scripts": {},
   "keywords": [],
   "author": "Jan Van Bruggen <jancvanbruggen@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JauntyTech/vuepoints.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JauntyTech/vuepoints/issues"
+  },
+  "homepage": "https://github.com/JauntyTech/vuepoints#readme"
 }
