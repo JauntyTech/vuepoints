@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<!-- vuepoints library styles -->
+<link rel="stylesheet" href="../../src/vuepoints.css">
+
+<div id="app">
+  <!-- A wrapper element to which the VuepointManager can bind -->
+  <div id="points-vuepoint-wrapper">
+    <!-- A vuepoint -->
+    <points-vuepoint :points="state.points"></points-vuepoint>
+  </div>
+</div>
+
+<!-- Vue library -->
+<!-- TODO: import Vue inside vuepoints -->
+<script src="../../src/vue.js" charset="utf-8"></script>
+
+<!-- vuepoints library logic -->
+<script src="../../src/vuepoints.js" charset="utf-8"></script>
+
+<!-- vuepoints-specific logic -->
+<script>
+  // Set up the VuepointManager
+  var state = {
+    points: []
+  }
+  var reactions = {
+    addRandomPoint: function(state) {
+      var randomPoint = {
+        id: Math.random(),
+        x: Math.random(),
+        y: Math.random()
+      }
+      state.points.push(randomPoint)
+    },
+    clearPoints: function(state) {
+      state.points = []
+    },
+    moveRandomPoint: function(state) {
+      if (state.points.length === 0) {
+        return
+      }
+      var randomPointIndex = Math.floor(Math.random() * state.points.length)
+      state.points[randomPointIndex].x = Math.random()
+      state.points[randomPointIndex].y = Math.random()
+    },
+  }
+  var wrapperId = 'points-vuepoint-wrapper'
+  var pointsVuepoint = new VuepointManager(wrapperId, state, reactions)
+</script>
+
+<!-- Existing/mock logic -->
+<script type="text/javascript">
+  // Simulate user interactions
+  // These `pointsVuepoint.react()` calls could be anywhere in the app
+  var seconds = 0
+  while (seconds < 100) {
+    seconds += 0.5
+    setTimeout(
+      function() {
+        var diceRoll = Math.random()
+        if (diceRoll < 0.6) {
+          pointsVuepoint.react('addRandomPoint')
+        } else if (diceRoll < 0.9) {
+          pointsVuepoint.react('moveRandomPoint')
+        } else {
+          pointsVuepoint.react('clearPoints')
+        }
+      },
+      seconds * 1000
+    )
+  }
+</script>

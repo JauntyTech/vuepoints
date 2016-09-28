@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<!-- vuepoints library styles -->
+<link rel="stylesheet" href="../../src/vuepoints.css">
+
+<div id="app">
+  <!-- A vuepoint -->
+  <points-vuepoint :points="points"></points-vuepoint>
+</div>
+
+<!-- Vue library -->
+<!-- TODO: import Vue inside vuepoints -->
+<script src="../../src/vue.js" charset="utf-8"></script>
+
+<!-- vuepoints library logic -->
+<script src="../../src/vuepoints.js" charset="utf-8"></script>
+
+<!-- vuepoints-specific logic -->
+<script>
+  // No vuepoints-specific logic is required.
+  // If you're already using Vue, then just use vuepoints as components!
+</script>
+
+<!-- Existing/mock logic -->
+<script type="text/javascript">
+  // Bind your own ViewModel
+  var myViewModel = new Vue({
+    el: '#app',
+    data: {
+      points: []
+    }
+  })
+  // Simulate user interactions
+  // These `myViewModel.points` changes could be anywhere in the app
+  var seconds = 0
+  while (seconds < 100) {
+    seconds += 0.5
+    setTimeout(
+      function() {
+        var diceRoll = Math.random()
+        if (diceRoll < 0.6) {
+          var randomPoint = {
+            id: Math.random(),
+            x: Math.random(),
+            y: Math.random()
+          }
+          myViewModel.points.push(randomPoint)
+        } else if (diceRoll < 0.9) {
+          if (myViewModel.points.length === 0) {
+            return
+          }
+          var randomPointIndex = Math.floor(
+            Math.random() * myViewModel.points.length
+          )
+          myViewModel.points[randomPointIndex].x = Math.random()
+          myViewModel.points[randomPointIndex].y = Math.random()
+        } else {
+          myViewModel.points = []
+        }
+      },
+      seconds * 1000
+    )
+  }
+</script>
