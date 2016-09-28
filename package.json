@@ -5,7 +5,9 @@
   "main": "src/vuepoints.js",
   "directories": {},
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "vue": "^2.0.0-rc.8"
+  },
   "scripts": {},
   "keywords": [],
   "author": "Jan Van Bruggen <jancvanbruggen@gmail.com>",
