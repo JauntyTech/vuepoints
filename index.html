@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<head>
+  <title>
+    vuepoints
+  </title>
+</head>
+
+<body>
+  <div id="app" class="content">
+    <h1>
+      Reusable, stateful SVG visualizations you can use with/without Vue
+    </h1>
+    <h2>
+      Examples:
+    </h2>
+    <ul>
+      <li v-for="exampleName in exampleNames">
+        <a :href="getExamplePath(exampleName)">
+          {{ exampleName }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</body>
+
+<script src="src/vue.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+  new Vue({
+    el: '#app',
+    data: {
+      exampleNames: ['lines', 'lines_managed', 'points', 'points_managed']
+    },
+    methods: {
+      getExamplePath: function(exampleName) {
+        return 'examples/' + exampleName + '/index.html'
+      }
+    }
+  })
+</script>
