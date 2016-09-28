@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<!-- vuepoints library styles -->
+<link rel="stylesheet" href="../../src/vuepoints.css">
+
+<div id="app">
+  <!-- A wrapper element to which the VuepointManager can bind -->
+  <div id="lines-vuepoint-wrapper">
+    <!-- A vuepoint -->
+    <lines-vuepoint :lines="state.lines"></lines-vuepoint>
+  </div>
+</div>
+
+<!-- Vue library -->
+<!-- TODO: import Vue inside vuepoints -->
+<script src="../../src/vue.js" charset="utf-8"></script>
+
+<!-- vuepoints library logic -->
+<script src="../../src/vuepoints.js" charset="utf-8"></script>
+
+<!-- vuepoints-specific logic -->
+<script>
+  // Set up the VuepointManager
+  var state = {
+    lines: []
+  }
+  var reactions = {
+    addRandomLine: function(state) {
+      var randomLine = [
+        { x: 1, y: Math.random() },
+        { x: 2, y: Math.random() },
+        { x: 3, y: Math.random() }
+      ]
+      state.lines.push(randomLine)
+    },
+    clearLines: function(state) {
+      state.lines = []
+    }
+  }
+  var wrapperId = 'lines-vuepoint-wrapper'
+  var linesVuepoint = new VuepointManager(wrapperId, state, reactions)
+</script>
+
+<!-- Existing/mock logic -->
+<script type="text/javascript">
+  // Simulate user interactions
+  // These `linesVuepoint.react()` calls could be anywhere in the app
+  var seconds = 0
+  while (seconds < 100) {
+    seconds += 0.5
+    setTimeout(
+      function() {
+        var diceRoll = Math.random()
+        if (diceRoll < 0.8) {
+          linesVuepoint.react('addRandomLine')
+        } else {
+          linesVuepoint.react('clearLines')
+        }
+      },
+      seconds * 1000
+    )
+  }
+</script>

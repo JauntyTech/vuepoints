@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "Reusable, stateful SVG visualizations you can use with/without Vue",
   "main": "src/vuepoints.js",
-  "directories": {},
+  "directories": {
+    "example": "examples"
+  },
   "dependencies": {},
   "devDependencies": {
     "vue": "^2.0.0-rc.8"

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<!-- vuepoints library styles -->
+<link rel="stylesheet" href="../../src/vuepoints.css">
+
+<div id="app">
+  <!-- A vuepoint -->
+  <lines-vuepoint :lines="lines"></lines-vuepoint>
+</div>
+
+<!-- Vue library -->
+<!-- TODO: import Vue inside vuepoints -->
+<script src="../../src/vue.js" charset="utf-8"></script>
+
+<!-- vuepoints library logic -->
+<script src="../../src/vuepoints.js" charset="utf-8"></script>
+
+<!-- vuepoints-specific logic -->
+<script>
+  // No vuepoints-specific logic is required.
+  // If you're already using Vue, then just use vuepoints as components!
+</script>
+
+<!-- Existing/mock logic -->
+<script>
+  // Existing/mock logic
+  //
+  // Bind your own ViewModel
+  var myViewModel = new Vue({
+    el: '#app',
+    data: {
+      lines: []
+    }
+  })
+  // Simulate user interactions
+  // These `myViewModel.lines` changes could be anywhere in the app
+  var seconds = 0
+  while (seconds < 100) {
+    seconds += 0.5
+    setTimeout(
+      function() {
+        var diceRoll = Math.random()
+        if (diceRoll < 0.8) {
+          var randomLine = [
+            { x: 1, y: Math.random() },
+            { x: 2, y: Math.random() },
+            { x: 3, y: Math.random() }
+          ]
+          myViewModel.lines.push(randomLine)
+        } else {
+          myViewModel.lines = []
+        }
+      },
+      seconds * 1000
+    )
+  }
+</script>
