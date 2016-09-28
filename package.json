@@ -1,0 +1,13 @@
+{
+  "name": "vuepoints",
+  "version": "0.1.0",
+  "description": "Reusable, stateful SVG visualizations you can use with/without Vue",
+  "main": "",
+  "directories": {},
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {},
+  "keywords": [],
+  "author": "Jan Van Bruggen <jancvanbruggen@gmail.com>",
+  "license": "ISC"
+}
