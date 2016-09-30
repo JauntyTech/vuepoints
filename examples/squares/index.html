@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<!-- vuepoints library styles -->
+<link rel="stylesheet" href="../../src/vuepoints.css">
+
+<div id="app">
+  <h2>
+    Click inside/outside the squares
+  </h2>
+  <!-- A vuepoint -->
+  <squares-vuepoint :squares="squares" :react="react"></squares-vuepoint>
+</div>
+
+<!-- Vue library -->
+<!-- TODO: import Vue inside vuepoints -->
+<script src="../../src/vue.js" charset="utf-8"></script>
+
+<!-- vuepoints library logic -->
+<script src="../../src/vuepoints.js" charset="utf-8"></script>
+
+<!-- vuepoints-specific logic -->
+<script>
+  // No vuepoints-specific logic is required.
+  // If you're already using Vue, then just use vuepoints as components!
+</script>
+
+<!-- Existing/mock logic -->
+<script>
+  // Bind your own ViewModel
+  var myViewModel = new Vue({
+    el: '#app',
+    data: {
+      squares: [
+        { id: 1, selected: false },
+        { id: 2, selected: false },
+        { id: 3, selected: false },
+        { id: 4, selected: false },
+        { id: 5, selected: false },
+        { id: 6, selected: false },
+        { id: 7, selected: false },
+      ]
+    },
+    methods: {
+      react: function(action) {
+        if (action === 'toggleSquareSelected') {
+          var squareId = arguments[1]
+          var square = this.squares.find(function(square) {
+            return square.id === squareId
+          })
+          if (!square) {
+            console.log('There is no square with ID', squareId);
+            return
+          }
+          square.selected = !square.selected
+        } else if (action === 'unselectAllSquares') {
+          this.squares.forEach(function(square) { square.selected = false })
+        }
+      }
+    }
+  })
+  // Simulate user interactions
+  // These `squaresVuepoint.react()` calls could be anywhere in the app
+  myViewModel.squares.forEach(function(square) {
+    setTimeout(
+      function() {
+        myViewModel.react('toggleSquareSelected', square.id)
+      },
+      500 + 100 * square.id
+    )
+    setTimeout(
+      function() {
+        myViewModel.react('toggleSquareSelected', square.id)
+      },
+      800 + 100 * square.id
+    )
+  })
+</script>

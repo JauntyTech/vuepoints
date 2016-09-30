@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<!-- vuepoints library styles -->
+<link rel="stylesheet" href="../../src/vuepoints.css">
+
+<div id="app">
+  <h2>
+    Click inside/outside the squares
+  </h2>
+  <!-- A wrapper element to which the VuepointManager can bind -->
+  <div id="squares-vuepoint-wrapper">
+    <!-- A vuepoint -->
+    <squares-vuepoint :squares="state.squares" :react="react">
+    </squares-vuepoint>
+  </div>
+</div>
+
+<!-- Vue library -->
+<!-- TODO: import Vue inside vuepoints -->
+<script src="../../src/vue.js" charset="utf-8"></script>
+
+<!-- vuepoints library logic -->
+<script src="../../src/vuepoints.js" charset="utf-8"></script>
+
+<!-- vuepoints-specific logic -->
+<script>
+  // Set up the VuepointManager
+  var state = {
+    squares: [
+      { id: 1, selected: false },
+      { id: 2, selected: false },
+      { id: 3, selected: false },
+      { id: 4, selected: false },
+      { id: 5, selected: false },
+      { id: 6, selected: false },
+      { id: 7, selected: false },
+    ]
+  }
+  var reactions = {
+    toggleSquareSelected: function(state, squareId) {
+      var square = state.squares.find(function(square) {
+        return square.id === squareId
+      })
+      if (!square) {
+        console.log('There is no square with ID', squareId);
+        return
+      }
+      square.selected = !square.selected
+    },
+    unselectAllSquares: function(state) {
+      state.squares.forEach(function(square) { square.selected = false })
+    }
+  }
+  var wrapperId = 'squares-vuepoint-wrapper'
+  var squaresVuepoint = new VuepointManager(wrapperId, state, reactions)
+</script>
+
+<!-- Existing/mock logic -->
+<script type="text/javascript">
+  // Simulate user interactions
+  // These `squaresVuepoint.react()` calls could be anywhere in the app
+  state.squares.forEach(function(square) {
+    setTimeout(
+      function() {
+        squaresVuepoint.react('toggleSquareSelected', square.id)
+      },
+      500 + 100 * square.id
+    )
+    setTimeout(
+      function() {
+        squaresVuepoint.react('toggleSquareSelected', square.id)
+      },
+      800 + 100 * square.id
+    )
+  })
+</script>
